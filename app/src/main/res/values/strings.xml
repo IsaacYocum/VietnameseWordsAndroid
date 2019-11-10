@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">VietnameseWordsAndroid</string>
+    <string name="Vietnamese_Hint">Vietnamese - Search or Enter</string>
+    <string name="English_Hint">English - Search or Enter</string>
+    <string name="btn_Add_Text">Add</string>
+    <string name="btn_Clear_Text">Clear</string>
+    <string name="btn_All_Text">All</string>
+    <string name="englishColumnHeader">English</string>
+    <string name="vietnameseColumnHeader">Vietnamese</string>
+</resources>
