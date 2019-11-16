@@ -11,63 +11,132 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/editText_Vietnamese"
+        <LinearLayout
+            android:id="@+id/linearLayout_EditTextContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/Vietnamese_Hint"
-            android:inputType="textPersonName" />
 
-        <EditText
-            android:id="@+id/editText_English"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/English_Hint"
-            android:inputType="textPersonName" />
+            android:background="@color/aliceBlue"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/editText_Vietnamese"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/Vietnamese_Hint"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editText_English"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/English_Hint"
+                android:inputType="textPersonName"
+                android:paddingTop="0dp" />
+        </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linearLayout_Main"
             style="?attr/buttonBarStyle"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn_Add"
+                style="@style/Widget.AppCompat.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:backgroundTint="@android:color/holo_blue_dark"
                 android:onClick="btnAddOnClick"
-                android:text="@string/btn_Add_Text" />
+                android:text="@string/btn_Add_Text"
+                android:textColor="@android:color/white" />
 
             <Button
                 android:id="@+id/btn_Clear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:backgroundTint="@android:color/holo_blue_dark"
                 android:onClick="btnClearOnClick"
-                android:text="@string/btn_Clear_Text" />
+                android:text="@string/btn_Clear_Text"
+                android:textColor="@android:color/white" />
+
+            <ImageButton
+                android:id="@+id/imageBtn_Options"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_weight="0"
+                android:backgroundTint="@android:color/holo_blue_dark"
+                android:onClick="btnOptionsOnClick"
+                android:textColor="@android:color/white"
+                app:srcCompat="@drawable/ic_settings_white_24dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout_Options"
+            style="?attr/buttonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageButton
+                android:id="@+id/imageButton_CancelDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_weight="0"
+                android:backgroundTint="@android:color/holo_green_dark"
+                android:onClick="btnCancelDeleteOnClick"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_close_black_24dp" />
+
+            <ImageButton
+                android:id="@+id/btn_Delete"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_weight="0"
+                android:backgroundTint="@android:color/holo_red_dark"
+                android:onClick="btnDeleteOnClick"
+                android:textColor="@android:color/white"
+                app:srcCompat="@drawable/ic_delete_black_24dp" />
 
             <Button
                 android:id="@+id/btn_All"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:backgroundTint="@android:color/holo_blue_dark"
                 android:onClick="btnAllOnClick"
-                android:text="@string/btn_All_Text" />
+                android:text="@string/btn_All_Text"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/btn_Random"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/holo_blue_dark"
+                android:onClick="btnRandomOnClick"
+                android:text="@string/btn_Random"
+                android:textColor="@android:color/white" />
 
         </LinearLayout>
 
         <TableLayout
-            android:id="@+id/tableLayout_TranslationsList"
+            android:id="@+id/tableLayout_TranslationsListColumnHeaders"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <TableRow
                 android:id="@+id/tableRow_ColumnHeader"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/textView_ColumnHeaderVietnamese"
@@ -76,7 +145,7 @@
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
                     android:text="@string/vietnameseColumnHeader"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                 <TextView
                     android:id="@+id/textView_ColumnHeaderEnglish"
@@ -85,10 +154,28 @@
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
                     android:text="@string/englishColumnHeader"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
             </TableRow>
         </TableLayout>
+
+        <ScrollView
+            android:id="@+id/scrollView_TranslationsList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/linearLayout_TranslationsList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TableLayout
+                    android:id="@+id/tableLayout_TranslationsList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </ScrollView>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

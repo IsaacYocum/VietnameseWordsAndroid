@@ -6,32 +6,29 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String TAG = "DatabaseHelper";
-
     private static final String TABLE_NAME = "translation_table";
-    private static final String COL0 = "ID";
-    private static final String COL1 = "vWord";
-    private static final String COL2 = "eWord";
-    private static final String COL3 = "created";
-    private static final String COL4 = "updated";
+    private static final String ID = "ID";
+    private static final String V_WORD = "vWord";
+    private static final String E_WORD = "eWord";
+    private static final String CREATED = "created";
+    private static final String UPDATED = "updated";
 
-    public DatabaseHelper(Context context) {
+    DatabaseHelper(Context context) {
         super(context, TABLE_NAME, null, 2);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTable = "CREATE TABLE " + TABLE_NAME + " (" +
-                COL0 + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COL1 + " TEXT, " +
-                COL2 + " TEXT, " +
-                COL3 + " TEXT, " +
-                COL4 + " TEXT)";
+                ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                V_WORD + " TEXT, " +
+                E_WORD + " TEXT, " +
+                CREATED + " TEXT, " +
+                UPDATED + " TEXT)";
 
         db.execSQL(createTable);
     }
@@ -42,25 +39,59 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean addTranslation(String vWord, String eWord) {
+    long add(String vWord, String eWord) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL1, vWord);
-        contentValues.put(COL2, eWord);
+        contentValues.put(E_WORD, eWord);
+        contentValues.put(V_WORD, vWord);
 
         Date date = new Date();
-        contentValues.put(COL3, date.getTime());
-        contentValues.put(COL4, date.getTime());
+        contentValues.put(CREATED, date.getTime());
+        contentValues.put(UPDATED, date.getTime());
 
-        long result = db.insert(TABLE_NAME, null, contentValues);
-
-        return result == -1 ? false : true;
+        return db.insert(TABLE_NAME, null, contentValues);
     }
 
-    public Cursor getAll() {
+    void update(long id, String column, String newText) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_NAME;
-        Cursor data = db.rawQuery(query, null);
-        return data;
+        String query = "UPDATE " + TABLE_NAME + " SET " + column + " = '" + newText + "' WHERE id = " + id + ";";
+        db.execSQL(query);
+    }
+
+    void delete(long id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "DELETE FROM " + TABLE_NAME + " WHERE id = " + id + ";";
+        db.execSQL(query);
+    }
+
+    Cursor getAll() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_NAME + ";";
+        return db.rawQuery(query, null);
+    }
+
+    Cursor getRandom() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_NAME + " ORDER BY RANDOM() LIMIT 1;";
+        return db.rawQuery(query, null);
+    }
+
+    Cursor getId(long id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + ID + " = " + id + ";";
+        return db.rawQuery(query, null);
+    }
+
+    Cursor search(String language, String searchedText) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query;
+
+        if (language.equals("vietnamese")) {
+            query = "SELECT * FROM " + TABLE_NAME + " WHERE " + V_WORD + " LIKE ?";
+        } else {
+            query = "SELECT * FROM " + TABLE_NAME + " WHERE " + E_WORD + " LIKE ?";
+        }
+
+        return db.rawQuery(query, new String[] { "%" + searchedText + "%" });
     }
 }
