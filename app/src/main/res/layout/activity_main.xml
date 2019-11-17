@@ -143,6 +143,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@color/aliceBlue"
                     android:gravity="center_horizontal"
                     android:text="@string/vietnameseColumnHeader"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
@@ -152,6 +153,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@color/aliceBlue"
                     android:gravity="center_horizontal"
                     android:text="@string/englishColumnHeader"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
@@ -161,6 +163,7 @@
 
         <ScrollView
             android:id="@+id/scrollView_TranslationsList"
+            style="@android:style/Widget.Material.Light.ScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
